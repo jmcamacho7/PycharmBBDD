@@ -92,16 +92,11 @@ try:
             print("Registro insertado con éxito")
 
         if eleccion == "c":
-            cursor.execute("DELETE FROM equipo WHERE id_equipo = ('{0}')").format(id)
+            numerito= str(input("Introduce el número del ID:"))
+            sentencia= "DELETE FROM equipo WHERE id_equipo = {};".format(numerito)
+            cursor.execute(sentencia)
             conexion.commit()
             print("Eliminación realizada con éxito")
-
-        nombre = input("Ingresa el nombre del equipo: ")
-        puntos = input("Ingresa los puntos del equipo: ")
-        sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(nombre, puntos)
-        cursor.execute(sentencia)
-        conexion.commit()
-        print("Registro insertado con éxito")
 
 except Error as ex:
     print("Error durante la conexión :(")
