@@ -18,12 +18,10 @@ try:
         cursor.execute("SELECT database();")
         registro = cursor.fetchone()
         print("Conectado a la BD:", registro)
-        nombre = input("Ingresa el nombre del equipo: ")
-        puntos = input("Ingresa los puntos del equipo: ")
-        sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(nombre, puntos)
-        cursor.execute(sentencia)
-        conexion.commit()
-        print("Registro insertado con éxito")
+        cursor.execute("SELECT * FROM equipo")
+        resultados=cursor.fetchall()
+        for fila in resultados:
+            print(fila[0], fila[1], fila[2])
 
 except Error as ex:
     print("Error durante la conexión :(")
