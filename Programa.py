@@ -68,6 +68,13 @@ try:
         cursor.execute("SELECT database();")
         registro = cursor.fetchone()
         print("Conectado a la BD:", registro)
+
+        for x in listdicc:
+            sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(x["equipos"], x["puntos"])
+            cursor.execute(sentencia)
+            conexion.commit()
+            print("Registro insertado con éxito")
+
         eleccion = input("Selecciona que quieres hacer: a si quieres leer la base de datos, b si quieres introducir datos, c si quieres eliminar datos")
 
         if eleccion == "a":
