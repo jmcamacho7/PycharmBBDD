@@ -92,7 +92,7 @@ try:
             print("Registro insertado con éxito")
 
         if eleccion == "c":
-            cursor.execute("DELETE FROM equipo WHERE id_equipo = 1")
+            cursor.execute("DELETE FROM equipo WHERE id_equipo = ('{0}')").format(id)
             conexion.commit()
             print("Eliminación realizada con éxito")
 
