@@ -20,7 +20,7 @@ try:
         print("Conectado a la BD:", registro)
         nombre = input("Ingresa el nombre del equipo: ")
         puntos = input("Ingresa los puntos del equipo: ")
-        sentencia="INSERT INTO equipo (nombre) VALUES ('{0}')".format(nombre)
+        sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(nombre, puntos)
         cursor.execute(sentencia)
         conexion.commit()
         print("Registro insertado con éxito")
