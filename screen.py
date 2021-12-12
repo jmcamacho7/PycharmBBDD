@@ -3,7 +3,6 @@ from tkinter import *
 from tkinter import ttk
 from Programa import *
 
-
 def pantalla2():
 
     clasificacion = visualizar()
@@ -46,12 +45,11 @@ def pantalla3():
     dato.grid(column=0, row=3)
     escribir2 = Entry(frame)
     escribir2.grid(column=0, row=4)
+    boton= Button(frame, text="Ingresar", command=lambda: ingresar(escribir.get(), escribir2.get()))
+    boton.grid(column=0, row=5)
 
-    frame.pack
+    frame.pack()
     pantalla.mainloop()
-
-
-
 
 def pantalla():
     pantalla = Tk()

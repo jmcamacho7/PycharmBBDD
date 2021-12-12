@@ -1,5 +1,4 @@
 import mysql.connector
-from mysql.connector import Error
 from bs4 import BeautifulSoup
 import requests
 
@@ -46,7 +45,7 @@ def lista():
         copia["equipos"] = equipos[x]
         copia["puntos"] = puntos[x]
         listdicc.append(copia)
-    print(listdicc)
+
 
 peticion()
 lista()
@@ -84,12 +83,10 @@ def visualizar():
         print(fila[0], fila[1], fila[2])
     return resultados
 
-def ingresar():
+def ingresar(escribir, escribir2):
     conexion = conectar()
     cursor = cursorBBDD(conexion)
-    nombre = input("Ingresa el nombre del equipo: ")
-    punto = input("Ingresa los puntos del equipo: ")
-    sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(nombre, punto)
+    sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(escribir, escribir2)
     cursor.execute(sentencia)
     conexion.commit()
     print("Registro insertado con éxito")
