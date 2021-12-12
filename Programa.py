@@ -51,7 +51,7 @@ def lista():
 peticion()
 lista()
 
-def conexion():
+def conectar():
     conexion = mysql.connector.connect(
         host="localhost",
         port=3306,
@@ -59,18 +59,15 @@ def conexion():
         password="patata123",
         database="furbo"
     )
+    return conexion
 
-    if conexion.is_connected():
-        print("Conexión correcta :D")
-        inforserver = conexion.get_server_info()
-        print("Info del servidor:", inforserver)
-        cursor = conexion.cursor()
-        cursor.execute("SELECT database();")
-        registro = cursor.fetchone()
-        print("Conectado a la BD:", registro)
+def cursorBBDD(conexion):
+    cursor = conexion.cursor()
+    return cursor
 
 def tablaactual():
-
+    conexion = conectar()
+    cursor = cursorBBDD(conexion)
     for x in listdicc:
         sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(x["equipos"], x["puntos"])
         cursor.execute(sentencia)
@@ -78,14 +75,18 @@ def tablaactual():
         print("Registro insertado con éxito")
 
 
-
 def visualizar():
+    conexion = conectar()
+    cursor = cursorBBDD(conexion)
     cursor.execute("SELECT * FROM equipo")
     resultados = cursor.fetchall()
     for fila in resultados:
         print(fila[0], fila[1], fila[2])
+    return resultados
 
 def ingresar():
+    conexion = conectar()
+    cursor = cursorBBDD(conexion)
     nombre = input("Ingresa el nombre del equipo: ")
     punto = input("Ingresa los puntos del equipo: ")
     sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(nombre, punto)
@@ -94,10 +95,20 @@ def ingresar():
     print("Registro insertado con éxito")
 
 def eliminar():
+    conexion = conectar()
+    cursor = cursorBBDD(conexion)
     numerito= str(input("Introduce el número del ID:"))
     sentencia= "DELETE FROM equipo WHERE id_equipo = {};".format(numerito)
     cursor.execute(sentencia)
     conexion.commit()
     print("Eliminación realizada con éxito")
+
+def eliminartodo():
+    conexion = conectar()
+    cursor = cursorBBDD(conexion)
+    sentencia= "DELETE FROM equipo;"
+    cursor.execute(sentencia)
+    conexion.commit()
+
 
 
