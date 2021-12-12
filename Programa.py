@@ -51,7 +51,7 @@ def lista():
 peticion()
 lista()
 
-try:
+def conexion():
     conexion = mysql.connector.connect(
         host="localhost",
         port=3306,
@@ -69,38 +69,35 @@ try:
         registro = cursor.fetchone()
         print("Conectado a la BD:", registro)
 
-        for x in listdicc:
-            sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(x["equipos"], x["puntos"])
-            cursor.execute(sentencia)
-            conexion.commit()
-            print("Registro insertado con éxito")
+def tablaactual():
 
-        eleccion = input("Selecciona que quieres hacer: a si quieres leer la base de datos, b si quieres introducir datos, c si quieres eliminar datos")
+    for x in listdicc:
+        sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(x["equipos"], x["puntos"])
+        cursor.execute(sentencia)
+        conexion.commit()
+        print("Registro insertado con éxito")
 
-        if eleccion == "a":
-            cursor.execute("SELECT * FROM equipo")
-            resultados = cursor.fetchall()
-            for fila in resultados:
-                print(fila[0], fila[1], fila[2])
 
-        if eleccion == "b":
-            nombre = input("Ingresa el nombre del equipo: ")
-            punto = input("Ingresa los puntos del equipo: ")
-            sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(nombre, punto)
-            cursor.execute(sentencia)
-            conexion.commit()
-            print("Registro insertado con éxito")
 
-        if eleccion == "c":
-            numerito= str(input("Introduce el número del ID:"))
-            sentencia= "DELETE FROM equipo WHERE id_equipo = {};".format(numerito)
-            cursor.execute(sentencia)
-            conexion.commit()
-            print("Eliminación realizada con éxito")
+def visualizar():
+    cursor.execute("SELECT * FROM equipo")
+    resultados = cursor.fetchall()
+    for fila in resultados:
+        print(fila[0], fila[1], fila[2])
 
-except Error as ex:
-    print("Error durante la conexión :(")
-finally:
-    if conexion.is_connected():
-        conexion.close()
-        print("Se cerró la conexión")
+def ingresar():
+    nombre = input("Ingresa el nombre del equipo: ")
+    punto = input("Ingresa los puntos del equipo: ")
+    sentencia = "INSERT INTO equipo (nombre, puntos) VALUES ('{0}','{1}')".format(nombre, punto)
+    cursor.execute(sentencia)
+    conexion.commit()
+    print("Registro insertado con éxito")
+
+def eliminar():
+    numerito= str(input("Introduce el número del ID:"))
+    sentencia= "DELETE FROM equipo WHERE id_equipo = {};".format(numerito)
+    cursor.execute(sentencia)
+    conexion.commit()
+    print("Eliminación realizada con éxito")
+
+
